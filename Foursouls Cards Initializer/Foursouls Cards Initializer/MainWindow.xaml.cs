@@ -33,7 +33,6 @@ namespace Foursouls_Cards_Initializer
             m_hwnd = WinRT.Interop.WindowNative.GetWindowHandle(this);
         }
 
-
         private void ExitButton_Click(object sender, RoutedEventArgs e) => Environment.Exit(Environment.ExitCode);
 
         private void OpenButton_Click(object sender, RoutedEventArgs e)
@@ -46,8 +45,6 @@ namespace Foursouls_Cards_Initializer
             var folderPicker = new FolderPicker();
             folderPicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
             folderPicker.FileTypeFilter.Add("*");
-
-            WinRT.Interop.InitializeWithWindow.Initialize(folderPicker, m_hwnd);
 
             WinRT.Interop.InitializeWithWindow.Initialize(folderPicker, m_hwnd);
 
