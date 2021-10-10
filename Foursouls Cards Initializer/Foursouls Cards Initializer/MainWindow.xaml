@@ -30,11 +30,11 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0" HorizontalAlignment="Stretch" Name="ProgressBarGrid">
-                <ProgressBar IsIndeterminate="True" Visibility="Visible" Margin="20, 0, 10, 0"/>
+                <ProgressBar Name="ProgressBarIndicator" Visibility="Visible" Margin="20, 0, 10, 0"/>
             </Grid>
 
             <Grid Grid.Column="1" HorizontalAlignment="Stretch" Name="ProgressTextGrid">
-                <TextBlock Text="10/500 done" Padding="0, 10, 0, 10" Margin="10, 0, 0, 0"/>
+                <TextBlock Name="ProgressText" Text="10/500 done" Padding="0, 10, 0, 10" Margin="10, 0, 0, 0"/>
             </Grid>
         </Grid>
 

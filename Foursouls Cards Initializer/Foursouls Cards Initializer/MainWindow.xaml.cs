@@ -14,6 +14,8 @@ using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Microsoft.Win32;
 using Windows.Storage.Pickers;
+using System.Threading.Tasks;
+using Microsoft.UI.Dispatching;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -42,11 +44,14 @@ namespace Foursouls_Cards_Initializer
 
         private async void OpenFolderDialog()
         {
-            var folderPicker = new FolderPicker();
+            ProgressBarIndicator.IsIndeterminate = true;
+
+            FolderPicker folderPicker = new FolderPicker();
             folderPicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
             folderPicker.FileTypeFilter.Add("*");
 
             WinRT.Interop.InitializeWithWindow.Initialize(folderPicker, m_hwnd);
+            DispatcherQueue dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
             Windows.Storage.StorageFolder folder = await folderPicker.PickSingleFolderAsync();
 
@@ -57,8 +62,54 @@ namespace Foursouls_Cards_Initializer
                 Windows.Storage.AccessCache.StorageApplicationPermissions.
                 FutureAccessList.AddOrReplace("PickedFolderToken", folder);
                 FolderPath.Text = "Picked folder: " + folder.Path;
+
+
+                await DoWork(dispatcherQueue, folder.Path);
+            }
+            else
+            {
+                ProgressBarIndicator.IsIndeterminate = false;
             }
         }
 
+        private async Task DoWork(DispatcherQueue dispatcherQueue, string path)
+        {
+            await Task.Run(() => InitialProcess(dispatcherQueue, path));
+        }
+
+        private async void InitialProcess(DispatcherQueue dispatcherQueue, string path)
+        {
+            var files = Directory.GetFiles(path);
+            bool found = false;
+
+            foreach (var item in files)
+            {
+                if (item == "process")
+                {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
+            {
+                dispatcherQueue.TryEnqueue(() =>
+                {
+                    ProgressBarIndicator.ShowError = true;
+                    ProgressText.Text = "Not the correct folder. Couldn't find the file \"process\"";
+                });
+
+                return;
+            }
+
+            int maxToProcess = 0;
+
+            var folder = Directory.EnumerateDirectories(path);
+
+            foreach (var item in folder)
+            {
+                
+            }
+        }
     }
 }
