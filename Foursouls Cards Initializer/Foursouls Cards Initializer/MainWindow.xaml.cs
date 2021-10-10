@@ -49,6 +49,8 @@ namespace Foursouls_Cards_Initializer
 
             WinRT.Interop.InitializeWithWindow.Initialize(folderPicker, m_hwnd);
 
+            WinRT.Interop.InitializeWithWindow.Initialize(folderPicker, m_hwnd);
+
             Windows.Storage.StorageFolder folder = await folderPicker.PickSingleFolderAsync();
 
             if (folder != null)
