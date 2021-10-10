@@ -12,6 +12,8 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Microsoft.Win32;
+using Windows.Storage.Pickers;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -23,9 +25,12 @@ namespace Foursouls_Cards_Initializer
     /// </summary>
     public sealed partial class MainWindow : Window
     {
+        private IntPtr m_hwnd;
+        
         public MainWindow()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+            m_hwnd = WinRT.Interop.WindowNative.GetWindowHandle(this);
         }
 
 
@@ -33,7 +38,33 @@ namespace Foursouls_Cards_Initializer
 
         private void OpenButton_Click(object sender, RoutedEventArgs e)
         {
-
+            OpenFolderDialog();
         }
+
+        private async void OpenFolderDialog()
+        {
+            var folderPicker = new FolderPicker();
+            folderPicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            folderPicker.FileTypeFilter.Add("*");
+
+            WinRT.Interop.InitializeWithWindow.Initialize(folderPicker, m_hwnd);
+
+
+            Windows.Storage.StorageFolder folder = await folderPicker.PickSingleFolderAsync();
+
+            if (folder != null)
+            {
+                // Application now has read/write access to all contents in the picked folder
+                // (including other sub-folder contents)
+                Windows.Storage.AccessCache.StorageApplicationPermissions.
+                FutureAccessList.AddOrReplace("PickedFolderToken", folder);
+                FolderPath.Text = "Picked folder: " + folder.Path;
+            }
+            else
+            {
+                FolderPath.Text = "Operation cancelled.";
+            }
+        }
+
     }
 }
