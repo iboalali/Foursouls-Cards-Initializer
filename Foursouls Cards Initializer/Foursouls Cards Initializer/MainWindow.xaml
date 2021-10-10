@@ -7,7 +7,50 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
-    </StackPanel>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" Name="TextBlockDirectoryGrid">
+            <Border Margin="20, 20" BorderBrush="LightGray" BorderThickness="2">
+                <TextBlock Name="FolderPath" Text="Folder Path" Margin="10, 10"/>
+            </Border>
+        </Grid>
+
+        <Grid Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" Name="ProgressGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" HorizontalAlignment="Stretch" Name="ProgressBarGrid">
+                <ProgressBar IsIndeterminate="True" Visibility="Visible" Margin="20, 0, 10, 0"/>
+            </Grid>
+
+            <Grid Grid.Column="1" HorizontalAlignment="Stretch" Name="ProgressTextGrid">
+                <TextBlock Text="10/500 done" Padding="0, 10, 0, 10" Margin="10, 0, 0, 0"/>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Column="0" Grid.Row="2" Name="ButtonsGrid" Margin="20, 20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Grid Grid.Column="0" HorizontalAlignment="Stretch" Name="OpenButtonBlock">
+                <Button Name="OpenButton" HorizontalAlignment="Stretch"   Content="Open" Click="OpenButton_Click" Padding="20, 10, 20, 10" Margin="0, 0, 10, 0"/>
+            </Grid>
+            <Grid Grid.Column="1" HorizontalAlignment="Stretch" Name="ExitButtonBlock">
+                <Button Name="ExitButton" HorizontalAlignment="Stretch" Content="Exit" Click="ExitButton_Click" Padding="20, 10, 20, 10" Margin="10, 0, 0, 0"/>
+            </Grid>
+        </Grid>
+    </Grid>
+
 </Window>

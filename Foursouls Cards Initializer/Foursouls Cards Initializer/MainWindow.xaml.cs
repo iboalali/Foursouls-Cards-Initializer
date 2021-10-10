@@ -28,9 +28,12 @@ namespace Foursouls_Cards_Initializer
             this.InitializeComponent();
         }
 
-        private void myButton_Click(object sender, RoutedEventArgs e)
+
+        private void ExitButton_Click(object sender, RoutedEventArgs e) => Environment.Exit(Environment.ExitCode);
+
+        private void OpenButton_Click(object sender, RoutedEventArgs e)
         {
-            myButton.Content = "Clicked";
+
         }
     }
 }

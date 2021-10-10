@@ -32,7 +32,7 @@ namespace Foursouls_Cards_Initializer
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>
