@@ -13,17 +13,17 @@ namespace Foursouls_Cards_Initializer
         public int Id { set; get; }
         public string Type { set; get; }
 
-        public CardModel()
-        {
-
-        }
-
         public CardModel(string name, string expension, string type, int id)
         {
             Name = name;
             Expansion = expension;
             Type = type;
             Id = id;
+        }
+
+        public string ToLine()
+        {
+            return string.Format("{0}\t{1}\t{2}", Id, Name, Expansion) + Environment.NewLine;
         }
     }
 }

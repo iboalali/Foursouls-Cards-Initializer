@@ -34,7 +34,7 @@
             </Grid>
 
             <Grid Grid.Column="1" HorizontalAlignment="Stretch" Name="ProgressTextGrid">
-                <TextBlock Name="ProgressText" Text="10/500 done" Padding="0, 10, 0, 10" Margin="10, 0, 0, 0"/>
+                <TextBlock Name="ProgressText" Text="0 out of ? done (0%)" Padding="0, 10, 0, 10" Margin="10, 0, 0, 0"/>
             </Grid>
         </Grid>
 
